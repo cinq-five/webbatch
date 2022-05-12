@@ -1,3 +1,3 @@
-module github.com/cinqfive/webbatch
+module github.com/cinq-five/webbatch
 
 go 1.18
