@@ -1,4 +1,4 @@
-package batch
+package webbatch
 
 import "net/http"
 
