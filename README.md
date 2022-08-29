@@ -24,7 +24,7 @@ Using this style yields to code blocks like these
 ```golang
 func handler(w http.ResponseWriter, r *http.Request) {
    // Suppose checkPermission, validateData, storeData and sendResult are all defined somewhere
-   batch := webbatch.WebBatch
+   batch := webbatch.Batch
    batch.AddStep(checkPermission)
        .AddStep(validateData)
        .AddStep(storeData)

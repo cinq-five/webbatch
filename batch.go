@@ -22,3 +22,11 @@ func (batch *Batch) Execute(writer http.ResponseWriter, request *http.Request, s
 
 	return true
 }
+
+func Execute(writer http.ResponseWriter, request *http.Request, steps ...Step) bool {
+	batch := Batch{
+		steps: steps,
+	}
+
+	return batch.Execute(writer, request)
+}
