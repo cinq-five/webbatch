@@ -1,4 +1,6 @@
 # WEB BATCH
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/cinqfive/webbatch/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/cinqfive/webbatch/tree/main)
+
 ## Description
 Error handling is a very important aspect of programming. In Golang, your programming style is affected by the fact that in order to indicate that something went wrong you need to return an `error` object. This in turn forces you to, should you handle that error, use an if block that tests if the error is not equal to `nil` and do something in that event. This can yield functions of considerable sizes and even when size is not a problem separation of concern becomes one.
 
