@@ -7,14 +7,14 @@ To this end, Web Batch was created. Web batch was created within the scope of we
 ## Usage
 `go mod get github.com/cinq-five/weborder` will download this module for you and add a reference to it in your `go.mod` file. Using this module is quite simple.
 
-### Via Exec()
-Using the function exec from this package will require you to pass to it the same arguments that are passed to your route handler, namely `w http.ResponseWriter, r *http.Request`. The following arguments are a variable list of `BatchFn` arguments. These are of type `func (w http.ResponseWriter, r *http.Request) bool`. They return false when something during their execution went wrong. This will cause all subsequent function executions to be canceled. These functions should only return true when other treatments are necessary.
+### Via Execute()
+Using the function exec from this package will require you to pass to it the same arguments that are passed to your route handler, namely `w http.ResponseWriter, r *http.Request`. The following arguments are a variable list of `Step` arguments. These are of type `func (w http.ResponseWriter, r *http.Request) bool`. They return false when something during their execution went wrong. This will cause all subsequent function executions to be canceled.
 
 #### Example
 ```golang
 func handler(w http.ResponseWriter, r *http.Request) {
    // Suppose checkPermission, validateData, storeData and sendResult are all defined somewhere
-   webbatch.Exec(w, r, checkPermission, validateData, storeData, sendResult)
+   webbatch.Execute(w, r, checkPermission, validateData, storeData, sendResult)
 }
 ```
 
@@ -25,11 +25,11 @@ Using this style yields to code blocks like these
 func handler(w http.ResponseWriter, r *http.Request) {
    // Suppose checkPermission, validateData, storeData and sendResult are all defined somewhere
    batch := webbatch.WebBatch
-   batch.Add(checkPermission)
-       .Add(validateData)
-       .Add(storeData)
-       .Add(sendResult)
-       .Run(w, r)
+   batch.AddStep(checkPermission)
+       .AddStep(validateData)
+       .AddStep(storeData)
+       .AddStep(sendResult)
+       .Execute(w, r)
 }
 ```
 
