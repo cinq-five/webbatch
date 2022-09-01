@@ -1,6 +1,7 @@
 package webbach
 
 import (
+	"context"
 	"net/http"
 	"testing"
 )
@@ -26,23 +27,23 @@ var stepsResults []bool
 
 func beforeEach() {
 	steps = []Step{
-		func(http.ResponseWriter, *http.Request) bool {
+		func(http.ResponseWriter, *http.Request, *context.Context) bool {
 			stepsResults[0] = true
 			return true
 		},
-		func(http.ResponseWriter, *http.Request) bool {
+		func(http.ResponseWriter, *http.Request, *context.Context) bool {
 			stepsResults[1] = false
 			return false
 		},
-		func(http.ResponseWriter, *http.Request) bool {
+		func(http.ResponseWriter, *http.Request, *context.Context) bool {
 			stepsResults[2] = true
 			return true
 		},
-		func(http.ResponseWriter, *http.Request) bool {
+		func(http.ResponseWriter, *http.Request, *context.Context) bool {
 			stepsResults[3] = true
 			return true
 		},
-		func(http.ResponseWriter, *http.Request) bool {
+		func(http.ResponseWriter, *http.Request, *context.Context) bool {
 			stepsResults[4] = true
 			return true
 		},
@@ -80,7 +81,7 @@ func TestExecute(t *testing.T) {
 
 	t.Run("Should execute following steps if step 2 returns true", func(t *testing.T) {
 		beforeEach()
-		steps[1] = func(http.ResponseWriter, *http.Request) bool {
+		steps[1] = func(http.ResponseWriter, *http.Request, *context.Context) bool {
 			stepsResults[1] = true
 			return true
 		}
@@ -122,7 +123,7 @@ func TestBatchWithAddStep(t *testing.T) {
 
 	t.Run("Should execute following steps if step 2 returns true", func(t *testing.T) {
 		beforeEach()
-		steps[1] = func(http.ResponseWriter, *http.Request) bool {
+		steps[1] = func(http.ResponseWriter, *http.Request, *context.Context) bool {
 			stepsResults[1] = true
 			return true
 		}

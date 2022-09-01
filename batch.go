@@ -1,9 +1,13 @@
 package webbach
 
-import "net/http"
+import (
+	"context"
+	"net/http"
+)
 
 type Batch struct {
 	steps []Step
+	ctx   context.Context
 }
 
 func (batch *Batch) AddStep(step Step) *Batch {
@@ -17,7 +21,7 @@ func (batch *Batch) Execute(writer http.ResponseWriter, request *http.Request, s
 	batch.steps = append(batch.steps, steps...)
 
 	for _, step := range batch.steps {
-		if !step(writer, request) {
+		if !step(writer, request, &batch.ctx) {
 			return false
 		}
 	}
